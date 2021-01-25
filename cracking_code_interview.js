@@ -115,6 +115,8 @@ function permutation(string){
     return permutations;
 }
 
+
+
 function palindromePermutation(string){
     let newString = string.split(' ').join('').toLowerCase()
     let perms = permutation(newString)
@@ -161,3 +163,28 @@ function oneway(string1, string2){
 // console.log(oneway('pale', 'bake'));
 
 
+// STRING COMPRESSION 
+// Implement a method to perform basic string compression using the counts of repeated characters. 
+// For example, the string aabcccccaaa would become a2b1c5a3. 
+// If the "compressed" string would not become smaller than the original string, 
+// your method should return the original string. 
+// You can assume the string has only uppercase and lowercase letters (a - z).
+
+
+function compressString(string){
+    let count = 0; 
+    let compressed = "";
+
+    for(let i = 0; i < string.length; i++){
+        count += 1;
+
+        if(string[i] !== string[i + 1]){
+            compressed += string[i] + count; 
+            count = 0; 
+        } 
+    }
+
+    return compressed;
+}
+
+console.log(compressString('aabcccccaaa'));
