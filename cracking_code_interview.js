@@ -189,8 +189,119 @@ function compressString(string){
 
 // console.log(compressString('aabcccccaaa'));
 
+// [
+
+// [a,b,c]
+// [d,e,f] //original matrix
+// [g,h,i]
+
+// [a,d,g]
+// [b,e,h] //transposed matrix
+// [c,f,i]
+
+// [g,d,a]
+// [h,e,b] //turned clockwise
+// [i,f,c]
+
+
+
+// a [0,0][0,2]
+// b [0,1][1,2] // first row, you flip pairs and replace second digit with matrix length
+// c [0,2][2,2]
+
+// d [1,0][0,1]
+// e [1,1][1,1] // all other rows, flip pairs
+// f [1,2][2,1]
+
+// g [2,0][0,0]
+// h [2,1][1,0] // last row you flip pairs and replace second digit with 0
+// i [2,2][2,0]
+
+
+// ]
+
+// Rotating a specific layer would just mean swapping the values in four arrays. 
+// If you were asked to swap the values in two arrays, could you do this? 
+// Can you then extend it to four arrays?
+
 // ROTATE MATRIX 
 // Given an image represented by an NxN matrix, where each pixel in the 
 // image is 4 bytes, write a method to rotate the image by 90 degrees. 
 // Can you do this in place?
 
+function rotateMatrix(matrix){
+    let n = matrix.length; 
+    for(let i = 0; i < (n/2); i++){
+        let first = i; 
+        let last = n - 1 - i; 
+
+        for(j = first; j < last; j++){
+            let offset = j - first;
+            let top = matrix[first][j]; 
+            
+            // left to top
+            matrix[first][j] = matrix[last-offset][first];
+
+            // bottom to left
+            matrix[last-offset][first] = matrix[last][last - offset]
+
+            // right to bottom 
+            matrix[last][last - offset] = matrix[j][last]
+
+            // top to right 
+            matrix[j][last] = top;
+
+        }
+    }
+
+    return matrix;
+}
+
+// let matrix = [["a","b","c"],["d","e","f"],["g","h","i"]]
+
+// console.log(rotateMatrix(matrix));
+
+
+
+// ZERO MATRIX 
+// Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column are set to 0.
+
+let matrix= [
+
+    [1,1],
+    [1,1],
+    [0,1],
+
+
+]
+
+// [0,1]
+// [0,1]
+// [0,0]
+
+function deanZero(matrix){
+
+    let rows = [];
+    let col = [];
+
+    for(let i = 0; i < matrix.length; i++){
+        for(let j=0; j <matrix[0].length; j++){
+            if (matrix[i][j] === 0){
+                rows.push(i)
+                col.push(j)
+            }
+        }
+    }
+
+    for (let z = 0; z < matrix.length; z++){
+        for(let y = 0; y < matrix[0].length; y++){
+            if (rows.includes(z) || col.includes(y)){
+                matrix[z][y] = 0;            
+            }
+        }
+    }
+
+    return matrix;
+}
+
+// console.log(deanZero(matrix));
