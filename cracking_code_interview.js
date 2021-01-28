@@ -267,19 +267,16 @@ function rotateMatrix(matrix){
 // Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column are set to 0.
 
 let matrix= [
-
     [1,1],
     [1,1],
     [0,1],
-
-
 ]
 
 // [0,1]
 // [0,1]
 // [0,0]
 
-function deanZero(matrix){
+function zeroMatrix(matrix){
 
     let rows = [];
     let col = [];
@@ -304,4 +301,30 @@ function deanZero(matrix){
     return matrix;
 }
 
-// console.log(deanZero(matrix));
+
+// STRING ROTATION 
+// Assume you have a method isSubstring which checks if one word is a substring of another. 
+// Given two strings, s1 and s2, write code to check if s2 is a rotation of sl using only 
+// one call to isSubstring (e.g.,"waterbottle" is a rotation of "erbottlewat").
+
+
+// is string1 === to a rotation of string 2 
+// 
+function stringRotation(string1, string2){
+  let array1 = string1.split("");
+
+  let i = 0;
+  while (i < array1.length) {
+    array1.push(array1.shift());
+
+    if (array1.join("") === string2) {
+      return true;
+    }
+
+    i += 1;
+  }
+
+  return false;
+}
+
+// console.log(stringRotation("waterbottle", "erbottlewat"));
