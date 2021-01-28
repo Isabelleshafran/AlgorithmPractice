@@ -328,3 +328,41 @@ function stringRotation(string1, string2){
 }
 
 // console.log(stringRotation("waterbottle", "erbottlewat"));
+
+// REMOVE DUPS 
+// Write code to remove duplicates from an unsorted linked list.
+
+function removeDups(dups){
+    let noDups = [];
+
+    for(let i = 0; i < dups.length; i++){
+        if(!noDups.includes(dups[i])){
+            noDups.push(dups[i])
+        }
+    }
+
+    return noDups;
+}
+
+// solution 
+
+function deleteDups(n){
+    let obj = {};
+    n.previous = null;
+
+    while(n != null){
+        if (Object.values(obj).includes(n.data)) {
+            previous.next = n.next;
+        } else {
+          obj[n] = n.data;
+          previous = n;
+        }
+
+        n = n.next;
+    }
+
+    return obj;
+}
+
+
+console.log(removeDups([1, 1, 3, 5, 7, 4, 4]));
