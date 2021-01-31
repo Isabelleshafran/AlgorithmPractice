@@ -47,3 +47,39 @@ function reverseLinkedList(linkedlist){
    return linkedlist
 }
 
+// Write a function linkedListIntersection that returns the node at which the 
+// intersection of two linked lists begins, or null if there is no such 
+// intersection.
+
+function getLinkedListLength(listNode) {
+  if (listNode.next === null) {
+    return 1;
+  } else {
+    return getLinkedListLength(listNode.next) + 1;
+  }
+}
+
+function linkedListIntersection(list1, list2) {
+  // TODO: Implement the hasCycle function!
+  const list1Length = getLinkedListLength(list1.head);
+  const list2Length = getLinkedListLength(list2.head);
+
+  let diff = Math.abs(list2Length - list1Length);
+  let long = list1Length >= list2Length ? list1.head : list2.head;
+  let short = list1Length >= list2Length ? list2.head : list1.head;
+
+  while (long && short) {
+    if (diff > 0) {
+      long = long.next;
+      diff--;
+      continue;
+    }
+
+    if (long === short) return long;
+
+    long = long.next;
+    short = short.next;
+  }
+
+  return null;
+}
