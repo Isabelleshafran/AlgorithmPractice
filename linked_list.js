@@ -52,15 +52,14 @@ function reverseLinkedList(linkedlist){
 // intersection.
 
 function getLinkedListLength(listNode) {
-  if (listNode.next === null) {
+  if(listNode.length === null){
     return 1;
   } else {
-    return getLinkedListLength(listNode.next) + 1;
+    return getLinkedListLength(listNode.next) + 1
   }
 }
 
 function linkedListIntersection(list1, list2) {
-  // TODO: Implement the hasCycle function!
   const list1Length = getLinkedListLength(list1.head);
   const list2Length = getLinkedListLength(list2.head);
 
@@ -68,18 +67,21 @@ function linkedListIntersection(list1, list2) {
   let long = list1Length >= list2Length ? list1.head : list2.head;
   let short = list1Length >= list2Length ? list2.head : list1.head;
 
-  while (long && short) {
-    if (diff > 0) {
-      long = long.next;
+  while(long && short){
+    if(diff > 0){
+      long = long.next; 
       diff--;
       continue;
     }
 
-    if (long === short) return long;
+    if(long === short) return long; 
 
-    long = long.next;
+    long = long.next; 
     short = short.next;
   }
 
   return null;
 }
+
+
+
