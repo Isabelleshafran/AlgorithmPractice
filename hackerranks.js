@@ -206,9 +206,57 @@ function minmax(arr1, arr2) {
 
 // console.log(minmax([1, 3], [2,6]));
 
-console.log(getMergedIntervals(intervals));
+// console.log(getMergedIntervals(intervals));
 
+// COMPETITIVE GAMING 
+/*
+    A group of friend are playing a video game together. During the game, 
+    each player earns a number of points. At the end of a round, players 
+    who achieve at least a certain rank get to "level up" their characters. 
+    Given the scores of the players at the end of the round, how many players
+    will be able to level up?
 
+    Note: when players with equal scores will have equal ranks, but the player
+    with the next lowest score will be ranked based on the position within the 
+    list of all players scores. EX: if there are four players and three tie for 
+    first place, their ranks are 1, 1, 1, 4
 
+    Note: no player with score 0 can level up, regardless of rank 
 
+    Example: 
+    n = 4
+    k = 3
+    scores = [100, 50, 50, 25]
+
+    these players ranks are [1, 2, 2, 4]. Beacuse the players neeed to have a rank 
+    of at least 3, only 3 level up. So the answer is 3. 
+*/
+
+function numPlayers (k, scores) {
+    let sortedScores = scores.sort((a, b) => b - a);
+    let ranks = [1];
+    let place = 1;
+
+    for (let i = 1; i < sortedScores.length; i++) {
+        if (sortedScores[i] < sortedScores[i - 1] && sortedScores[i] !== 0) {
+            place = i + 1;
+            ranks.push(place);
+        } else if (sortedScores[i] === sortedScores[i - 1] && sortedScores[i] !== 0) {
+            ranks.push(place);
+        }
+    }
+    
+    let count = 0;
+    ranks.forEach(rank => {
+        if (rank <= k) {
+            count += 1;
+        }
+    })
+
+    return count;
+} 
+
+let k = 3; 
+let scores = [100, 50, 30, 20]
+console.log(numPlayers(k, scores));
 
