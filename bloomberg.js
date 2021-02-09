@@ -120,15 +120,20 @@ function roomCount(array){
         let current = sorted[i];
         let next = sorted[i+1];
 
-        if(current[0] < next[0] && current[1] < next[0]) {
-        } else {
-            count += 1
-        }
+        if(!(current[0] < next[0] && current[1] < next[0])) {
+            count += 1;
+        } 
     }
 
     return count; 
 }
 
-// console.log(roomCount([[7,10], [2,4]] ));
+// console.log(
+//   roomCount([
+//     [0, 30],
+//     [5, 10],
+//     [15, 20],
+//   ])
+// );
 
 

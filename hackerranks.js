@@ -258,5 +258,139 @@ function numPlayers (k, scores) {
 
 let k = 3; 
 let scores = [100, 50, 30, 20]
-console.log(numPlayers(k, scores));
+// console.log(numPlayers(k, scores));
 
+
+
+
+// Scatter Palindrome 
+
+function findPermutations(string){
+    if(string.length <= 1) return string; 
+    let permutations = [];
+
+    for(let i = 0; i < string.length; i++){
+        let char = string[i];
+
+        if(permutations.indexOf(char) !== -1) continue;
+
+        let remainingChars = string.slice(0, i) + string.slice(i+1);
+
+        for(let permutation of findPermutations(remainingChars)){
+            permutations.push(char + permutation)
+        }
+    }
+
+    return permutations;
+}
+
+function reverse(string){
+    return string.split('').reverse().join('')
+}
+
+function subStrings(string){
+    let subs = [];
+
+    for(let i = 0; i < string.length; i++){
+        for(let j = i; j < string.length; j++){
+            let sub = string.slice(i, j+1);
+
+            subs.push(sub)
+        }
+    }
+
+    return subs;
+}
+
+function isScatterPerm(string) {
+    let perms = findPermutations(string)
+    
+    for(let i = 0; i < perms.length; i++){
+        let current = perms[i];
+
+        if(current === reverse(current)){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function scatterPalindrome(strToEvaluate) {
+    let count = 0; 
+
+    for(let i = 0; i < strToEvaluate.length; i++){
+        let string = strToEvaluate[i];
+        let allSubStrings = subStrings(string);
+
+        for (let i = 0; i < allSubStrings.length; i++) {
+          let current = allSubStrings[i];
+
+          if (isScatterPerm(current)) {
+            count++;
+          }
+        }
+    }
+
+    return count;
+}
+
+// ['aabb'] => 9
+// ['bbrrg'] => 12
+
+//  console.log(scatterPalindrome(["bbrrg"]));
+
+
+// First Unique Char; 
+
+function firstUniqueChar(string){
+    let obj = {};
+
+    string.split('').forEach(char => {
+        if(!obj[char]) {
+            obj[char] = 1
+        } else {
+            obj[char] += 1
+        }
+    })
+
+   for(let i = 0; i < string.length; i++){
+       let current = string[i];
+
+       if(obj[current] === 1){
+           return i+1;
+       }
+   }
+
+   return -1;
+}
+
+// console.log(firstUniqueChar("statistics"));
+
+
+// Throttling Gateway 
+
+function droppedRequests(requestTime) {
+    let dropped = 0;
+
+    for(let i = 0; i < requestTime.length; i++){
+
+        if(i > 2 && (requestTime[i] === requestTime[i-3])){
+            dropped++
+        } else if (i > 19 && (requestTime[i] - requestTime[i-20]) < 10) {
+            dropped++
+        } else if (i > 59 && (requestTime[i] - requestTime[i - 60]) < 60){
+            dropped++
+        }
+    }
+
+    return dropped
+}
+
+
+ 
+let requestTime = [1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 7, 11, 11, 11, 11]
+
+console.log(droppedRequests(requestTime))
+
+// returns 7
