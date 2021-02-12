@@ -3,25 +3,32 @@
 // All opening parenthesis must be closed with its respective closing parenthesis and in order.
 
 
+
 function balanced(string){
     const stack = [];
+    let dictionary = [")}]"]
 
     for(let i = 0; i < string.length; i++){
         let currentChar = string[i];
 
-        switch (currentChar) {
-          case "(":
-            stack.push(")");
-            break;
-          case "{":
-            stack.push("}");
-            break;
-          case "[":
-            stack.push("]");
-            break;
-           default: 
-            topElement = stack.pop();
-            if(currentChar !== topElement) return false
+         if(dictionary.includes(currentChar)){
+             switch (currentChar) {
+               case "(":
+                 stack.push(")");
+                 break;
+               case "{":
+                 stack.push("}");
+                 break;
+               case "[":
+                 stack.push("]");
+                 break;
+               default: 
+                     let topElement = stack.pop()
+                     if (currentChar !== topElement) return false;
+
+         }
+            // topElement = stack.pop();
+            // if(currentChar !== topElement) return false
         }
     }
 
@@ -29,7 +36,7 @@ function balanced(string){
 }
 
 
-// console.log(balanced('([])'));
+// console.log(balanced('[hello]38{}'));
 
 // stack = [")]["]
 // currentChar = "["
@@ -135,5 +142,22 @@ function roomCount(array){
 //     [15, 20],
 //   ])
 // );
+
+
+// Is the number a palindome 
+
+function isPalindome(num){
+    let string = num.toString();
+
+    for (let index = 0; index < string.length; index++) {
+        const element1 = string[index];
+        const element2 = string[string.length -1 - index];
+
+        if(element1 !== element2) return false
+    }
+    return true;
+}
+
+// console.log(isPalindome(1213))
 
 
