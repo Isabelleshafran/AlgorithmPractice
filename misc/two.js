@@ -1,22 +1,61 @@
 
 
 /*
+   Given two strings, find if first string is a subsequence of second
 
-    Write a function that can be use multiple times to find certain data from a string. 
-    The data to be separated starts with an S and ends with an E. 
-    Any strings in between S and E that do not have this characters are to be 
-    included in the data collection string.
+    A subsequence is a sequence that can be derived from another sequence 
+    by deleting some elements without changing the order of the remaining elements 
+    Expected time complexity is linear.
 
+    Input: str1 = "AXY", str2 = "ADXCPY"
+    Output: True (str1 is a subsequence of str2)
 
+    Input: str1 = "AXY", str2 = "YADXCP"
+    Output: False (str1 is not a subsequence of str2)
 */
 
+    function subsequence(string, key){
+        if(key.length === 0) return true;
+
+        let firstKey = key[0];
+        let keyIndex = string.indexOf(firstKey);
+
+        if(keyIndex === -1) return false;
+        return subsequence(string.slice(keyIndex+1), key.slice(1))
+    }
+
+    let string = "YADXCP";
+    let key = "AXY";
+
+    // console.log(subsequence(string, key));
 
 /*
-   
     Given a bunch of events each with a starting and ending time, 
     construct a schedule for which I am 'not busy'.
 
+    input: [[9,10][8,9][14,17][13,14]]
+    output: 
 */
+
+// [ [ 8, 9 ], [ 9, 10 ], [ 13, 14 ], [ 14, 17 ] ]
+
+
+    function notBusy(array){
+        let sorted = array.sort((a,b) => a[0] - b[0]);
+        let result = [];
+
+        for(let i = 0; i < sorted.length; i++){
+            let current = sorted[i];
+            let next = sorted[i+1]
+
+            if(current[1] < next[0]){
+                result.push([current[0], next[0]])
+            }
+        }
+        return result
+    }
+
+    console.log(notBusy([[9,10],[8,9],[14,17],[13,14]]));
 
 /*
 
