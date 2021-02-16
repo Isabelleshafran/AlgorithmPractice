@@ -394,3 +394,90 @@ let requestTime = [1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7
 console.log(droppedRequests(requestTime))
 
 // returns 7
+
+
+// Songs 
+
+// Whole Minute Dilema
+
+//[40, 60, 20] === 1
+// [10, 50, 90, 30] === 2
+
+// how many combos equal a multiple of 60 
+
+function playlist(songs) {
+  let count = 0;
+
+  for (let i = 0; i < songs.length; i++) {
+    for (let j = i + 1; j < songs.length; j++) {
+      if ((songs[i] + songs[j]) % 60 === 0) {
+        count++;
+      }
+    }
+  }
+  return count;
+}
+
+// ran into time complexity issue 
+
+
+// Binary Number in a linked list 
+
+// input is a binnary linked list and need to return the decimal num 
+// 010011 to the num 
+
+function getNumber(binary) {
+  // Write your code here
+  let string = "";
+  let current = binary;
+
+  while (current) {
+    string += current.data;
+    current = current.next;
+  }
+  return parseInt(string, 2);
+}
+
+
+// Monsoon Umbrellas 
+
+/*
+Umbrellas are available in diff sizes that are each able to shelter a certian 
+number of people. Given the number of people needing shelting and a list of
+umbrella sizes, determine the min number of umbreallas neccesary to cover exactly
+the number of people given. If there is no combo return -1
+
+requirement: 5
+sizes = [3, 5]
+
+return 1
+
+requirement 7
+sizes = [3, 5]
+
+return -1;
+
+*/
+
+function getUmbrellas(requirement, sizes) {
+  let count = Infinity;
+
+  for (let i = 0; i < sizes.length; i++) {
+    let current = sizes[i];
+
+    if (requirement % current === 0) {
+      let currentCount = requirement / current;
+      if (currentCount < count) {
+        count = currentCount;
+      }
+    }
+  }
+
+  if (count !== Infinity) {
+    return count;
+  } else {
+    return -1;
+  }
+}
+
+// this doesn't handle if there is a combination of mulitple diff sizes to = requirement 
