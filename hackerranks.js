@@ -391,7 +391,7 @@ function droppedRequests(requestTime) {
  
 let requestTime = [1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 7, 11, 11, 11, 11]
 
-console.log(droppedRequests(requestTime))
+// console.log(droppedRequests(requestTime))
 
 // returns 7
 
@@ -406,17 +406,37 @@ console.log(droppedRequests(requestTime))
 // how many combos equal a multiple of 60 
 
 function playlist(songs) {
-  let count = 0;
+//   let count = 0;
 
-  for (let i = 0; i < songs.length; i++) {
-    for (let j = i + 1; j < songs.length; j++) {
-      if ((songs[i] + songs[j]) % 60 === 0) {
-        count++;
-      }
-    }
-  }
-  return count;
+//   for (let i = 0; i < songs.length; i++) {
+//     for (let j = i + 1; j < songs.length; j++) {
+//       if ((songs[i] + songs[j]) % 60 === 0) {
+//         count++;
+//       }
+//     }
+//   }
+//   return count;
 }
+
+const numPairsDivisibleBy60 = (time) => {
+  const appearDic = {};
+  let ans = 0;
+  time.forEach((el) => {
+
+    const mod = el % 60;
+    const left = (60 - mod) % 60;
+    ans += appearDic[left] ? appearDic[left] : 0;
+    appearDic[mod] = appearDic[mod] ? appearDic[mod] + 1 : 1;
+
+  });
+
+//   {10: 2, 20: 1, 40: 1} 
+// ans = 1
+  console.log(appearDic);
+  return ans;
+};
+
+console.log(numPairsDivisibleBy60([10, 20, 10, 40, 50, 60, 70, 30]));
 
 // ran into time complexity issue 
 
@@ -479,5 +499,32 @@ function getUmbrellas(requirement, sizes) {
     return -1;
   }
 }
+
+
+const solve = (people, umbrellas) => {
+  const biggerUmbrella = Math.max(...umbrellas);
+//   5
+  const remain = people % biggerUmbrella;
+//   3 
+  const peopleThatFit = Math.floor(people / biggerUmbrella);
+//   1
+
+  if (remain >= 1 && umbrellas.length === 1) {
+    return -1;
+  } else {
+    const remainingUmbrellas = umbrellas.filter(
+      (umbrella) => umbrella !== biggerUmbrella
+    );
+    // [3]
+    return remain !== 0
+      ? solve(remain, remainingUmbrellas) + peopleThatFit
+      : peopleThatFit;
+  }
+};
+
+console.log(solve(8, [5, 3]));
+
+// requirement = 8 
+// sizes = [5, 3]
 
 // this doesn't handle if there is a combination of mulitple diff sizes to = requirement 
