@@ -127,28 +127,25 @@ function anagrams(string1, string2){
 
 */
 
-function candyCrush(s){
+
+function candyCrush(string){
     const stack = [["", 0]];
-    
-    for(let i = 0; i < s.length; i++){
-        let char = s[i]
-        let [prev, count] = stack[stack.length - 1];
 
+    for(let i = 0; i < string.length; i++){
+        let char = string[i];
+        let [prev, count] = stack[stack.length-1];
 
-        if (char == prev) {
-
-          if (count >= 2) while(count--){
-                stack.pop();
-          } else {
-                stack.push([char, count + 1]);
-          }
-
+        if(char !== prev){
+            stack.push([char, 1])
         } else {
-             stack.push([char, 1]);
+            if(count >= 2 && char !== string[i+1]) while(count--){
+                stack.pop()
+            } else {
+                stack.push([char, count+1])
+            }
         }
     }
-  
-    return stack.map((x) => x[0]).join("");
+    return stack.map(x => x[0]).join('');
 }
 
 // console.log(candyCrush("abnnnnke"));
@@ -163,41 +160,26 @@ function candyCrush(s){
 */
 
 function twoSum(nums, target){
-    let obj = {};
-    let indicies = [];
+   let obj = {};
+   let indicies = [];
 
-    for(let i = 0; i < nums.length; i++){
-        let current = nums[i];
-        let difference = target - current; 
+   for(let i = 0; i < nums.length; i++){
+       let current = nums[i];
+       let difference = target - current; 
 
-        if(difference in obj){
-            indicies.push([obj[difference], i])
-        }
+       if(difference in obj){
+           indicies.push(obj[difference], i)
+       }
 
-        obj[current] = i;
-    }
-    // console.log(obj);
+       obj[current] = i;
+   }
 
-    return indicies
+   return indicies;
 }
 
-console.log(twoSum([2, 7, 11, 15], 9));
+// console.log(twoSum([2, 7, 11, 15], 9));
 
-// const twoSum = (nums, target) => {
-//   const map = {};
 
-//   for (let i = 0; i < nums.length; i++) {
-//     const another = target - nums[i];
-
-//     if (another in map) {
-//       return [map[another], i];
-//     }
-
-//     map[nums[i]] = i;
-//   }
-
-//   return null;
-// };
 
 /*
     Almost identical to leetcode #200
@@ -239,6 +221,24 @@ console.log(twoSum([2, 7, 11, 15], 9));
     How would you ensure our answer array doesn't have repeating elements.
 
 */
+
+// not sorted 
+function valuesInBoth(array1, array2){
+    let final = [];
+
+    for(let i = 0; i < array1.length; i++){
+        let num = array1[i];
+        if(array2.includes(num)){
+            final.push(num)
+        }
+    }
+
+    return final; 
+}
+
+console.log(valuesInBoth([3, 13, 5, 6, 12], [12, 1, 33, 5]));
+
+// sorted 
 
 
 /*
@@ -418,3 +418,62 @@ console.log(twoSum([2, 7, 11, 15], 9));
 /*
 
 */
+
+
+// # Write a method uncompress that accepts a string as an argument. 
+// # The string will be formatted so every letter is followed by a number. 
+// # The method should return an "uncompressed" version of the string where every letter 
+// # is repeated multiple times given based on the number that appears directly after the letter.
+
+
+
+function uncompress(string){
+    let newStr = "";
+    for(let i = 0; i < string.length-1; i+= 2){
+        let ele = string[i];
+        let num = parseInt(string[i+1]);
+
+        let j = 0; 
+        while(j < num){
+            newStr += ele
+            j++
+        }
+
+    }
+
+    return newStr
+}
+
+// console.log(uncompress('a2b4c1'));
+// console.log(uncompress('b1o2t1'));
+// console.log(uncompress('x3y1x2z4'));
+
+// # Examples
+
+// # p uncompress('a2b4c1') # 'aabbbbc'
+// # p uncompress('b1o2t1') # 'boot'
+// # p uncompress('x3y1x2z4') # 'xxxyxxzzzz'
+
+
+// Reverse version 
+
+function compress(string){
+    let newStr = "";
+    let count = 0; 
+
+    for(let i = 0; i < string.length; i++){
+        count++
+
+        if(string[i] !== string[i+1]){
+            let num = count.toString();
+            newStr += string[i] + num
+            count = 0
+        }
+    }
+
+    return newStr;
+}
+
+// console.log(compress("aabbbbc"));
+
+// aabbbbc => a2b4c1;
