@@ -55,18 +55,62 @@
         return result
     }
 
-    console.log(notBusy([[9,10],[8,9],[14,17],[13,14]]));
+    // console.log(notBusy([[9,10],[8,9],[14,17],[13,14]]));
 
 /*
-
     Given a string, find the first occurring unique character.
-
 */
+
+function firstUniqueChar(string){
+    let obj = {};
+    
+    string.split('').forEach(char => {
+        if(!obj[char]){
+            obj[char] = 1; 
+        } else {
+            obj[char] += 1; 
+        }
+    })
+
+    for(let i = 0; i < string.length; i++){
+        let char = string[i];
+        if(obj[char] === 1) {
+            return char;
+        }
+    }
+
+}
+
+// console.log(firstUniqueChar('ccattbb'));
+
 
 /*
     Are two words anagrams of each other
 */
 
+function anagrams(string1, string2){
+ let obj = {};
+
+    string1.split("").forEach((char) => {
+    if (!obj[char]) {
+        obj[char] = 1;
+    } else {
+        obj[char] += 1;
+    }
+    });
+
+    string2.split("").forEach((char) => {
+        if (!obj[char]) {
+        obj[char] = 1;
+        } else {
+        obj[char] -= 1;
+        }
+    });
+
+    return Object.values(obj).every(char => char === 0);
+}
+
+// console.log(anagrams('cat', 'tpc'));
 
 /*
     Candy crush words - removing letters that appear at least 3 times in a row
@@ -75,13 +119,85 @@
     similar to candy crush. If you get a string 'crush' any characters that occurs 3 or more times in a row. keep doing this until there cant be any more candies 'crushed'
     'abbbaa' => 'aaa' => ''
     'abnnnnke' => 'abke'
-    - optimal solution is to use a 2d stack, so you can get it in O(n) time.  In that you hold the char and the the second index is how many times it occurs. if you get to a new char check the previous entry in the stack if is has more than 3 in a row pop it off. increment the top element in the stack if it is the same char if not add a new one. then at the end build the new string out of the stack.
+    - optimal solution is to use a 2d stack, so you can get it in O(n) time.  
+    In that you hold the char and the the second index is how many times it occurs. 
+    if you get to a new char check the previous entry in the stack if is has more than 
+    3 in a row pop it off. increment the top element in the stack if it is the same char 
+    if not add a new one. then at the end build the new string out of the stack.
 
 */
+
+function candyCrush(s){
+    const stack = [["", 0]];
+    
+    for(let i = 0; i < s.length; i++){
+        let char = s[i]
+        let [prev, count] = stack[stack.length - 1];
+
+
+        if (char == prev) {
+
+          if (count >= 2) while(count--){
+                stack.pop();
+          } else {
+                stack.push([char, count + 1]);
+          }
+
+        } else {
+             stack.push([char, 1]);
+        }
+    }
+  
+    return stack.map((x) => x[0]).join("");
+}
+
+// console.log(candyCrush("abnnnnke"));
 
 /*
     variation on two sum but needed to count all the same pairs as well with many repeating numbers in the array.
+    **look at hackerrank for not 2d solution**
+
+    Input: nums = [2,7,11,15], target = 9
+    Output: [0,1]
+    Output: Because nums[0] + nums[1] == 9, we return [0, 1].
 */
+
+function twoSum(nums, target){
+    let obj = {};
+    let indicies = [];
+
+    for(let i = 0; i < nums.length; i++){
+        let current = nums[i];
+        let difference = target - current; 
+
+        if(difference in obj){
+            indicies.push([obj[difference], i])
+        }
+
+        obj[current] = i;
+    }
+    // console.log(obj);
+
+    return indicies
+}
+
+console.log(twoSum([2, 7, 11, 15], 9));
+
+// const twoSum = (nums, target) => {
+//   const map = {};
+
+//   for (let i = 0; i < nums.length; i++) {
+//     const another = target - nums[i];
+
+//     if (another in map) {
+//       return [map[another], i];
+//     }
+
+//     map[nums[i]] = i;
+//   }
+
+//   return null;
+// };
 
 /*
     Almost identical to leetcode #200
