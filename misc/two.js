@@ -527,7 +527,7 @@ function candyCrush(board){
 
     // TAG ROWS 
     for(let i = 0; i < board.length; i++){
-        for(let j = 0; j < board[i].length - 2; j++){
+        for(let j = 0; j < board[0].length - 2; j++){
             let num1 = Math.abs(board[i][j]);
             let num2 = Math.abs(board[i][j+1]);
             let num3 = Math.abs(board[i][j+2])
@@ -542,8 +542,8 @@ function candyCrush(board){
     }
 
     // TAG COLS 
-    for(let i = 0; i < board[0].length; i++){
-        for(let j = 0; j < board.length-2; j++){
+    for(let i = 0; i < board.length-2; i++){
+        for(let j = 0; j < board[0].length; j++){
             let num1 = Math.abs(board[i][j]);
             let num2 = Math.abs(board[i+1][j]);
             let num3 = Math.abs(board[i+2][j]);
@@ -560,21 +560,22 @@ function candyCrush(board){
     // GRAVITY 
 
     for(let j = 0; j < board[0].length; j++){
-
-        let idx = board.length - 1;
-
+        let row = board.length - 1;
+        // 9
         for(let i = board.length-1; i >= 0; i--){
-            if(board[j][i] > 0){
-                board[idx--][j] = board[i][j]
+            // i = 9
+            if(board[i][j] > 0){
+            //    id only decrements if its pos 
+                  board[row--][j] = board[i][j];
             }
         }
-
-        while(idx >= 0){
-            board[idx--][j] = 0;
-        }
+       while(row >= 0) board[row--][j] = 0;
     }
 
-    return done ? candyCrush(board) : board;
+    return !done ? candyCrush(board) : board;
 }
+
+
+
 
 console.log(candyCrush(board));
