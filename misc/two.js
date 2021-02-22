@@ -578,4 +578,130 @@ function candyCrush(board){
 
 
 
-console.log(candyCrush(board));
+// console.log(candyCrush(board));
+
+
+class TreeNode {
+    constructor(val){
+        this.val = val; 
+        this.left = null; 
+        this.right = null;
+    }
+}
+
+
+    function verticalTraversal(root){
+        if(!root) return res; 
+        let queue = [];
+        let m = {};
+        let hd_node = {};
+    
+        queue.push(root);
+        hd_node[root] = 0; 
+        m[0] = [root.val]
+    
+        while(queue.length > 0){
+            let hd; 
+            let temp = queue.pop();
+            if(temp.left){
+                queue.push(temp.left); 
+
+                hd_node[temp.left] = hd_node[temp] - 1;
+                hd = hd_node[temp.left];
+
+                if(!m[hd]){
+                    m[hd] = [];
+                }
+
+                m[hd].push(temp.left.data)
+            }
+
+            if(temp.right){
+                queue.push(temp.right);
+                hd_node[temp.right] = hd_node[temp] + 1; 
+                hd = hd_node[temp.right]
+
+                if (!m[hd]) {
+                    m[hd] = [];
+                }
+
+                m[hd].push(temp.right.data);
+            }
+        }
+    
+        return m; 
+    }
+
+let root = new TreeNode(1);
+root.left = new TreeNode(2);
+root.right = new TreeNode(3);
+root.left.left = new TreeNode(4);
+root.left.right = new TreeNode(5);
+root.right.left = new TreeNode(6);
+root.right.right = new TreeNode(7);
+root.right.left.right = new TreeNode(8);
+root.right.right.left = new TreeNode(10);
+root.right.right.right = new TreeNode(9);
+root.right.right.left.right = new TreeNode(11);
+root.right.right.left.right.right = new TreeNode(12);
+// console.log(verticalTraversal(root));
+
+
+/*
+
+    Number of Ships in a Rectangle
+    (This problem is an interactive problem.)
+
+    On the sea represented by a cartesian plane, each ship is located at an integer point, 
+    and each integer point may contain at most 1 ship.
+
+    You have a function Sea.hasShips(topRight, bottomLeft) which takes two 
+    points as arguments and returns true if and only if there is at least one ship 
+    in the rectangle represented by the two points, including on the boundary.
+
+    Given two points, which are the top right and bottom left corners of a rectangle, 
+    return the number of ships present in that rectangle.  
+    It is guaranteed that there are at most 10 ships in that rectangle.
+
+    Submissions making more than 400 calls to hasShips will be judged Wrong Answer.  
+    Also, any solutions that attempt to circumvent the judge will result in disqualification.
+
+    Input: 
+    ships = [[1,1],[2,2],[3,3],[5,5]], topRight = [4,4], bottomLeft = [0,0]
+    Output: 3
+    Explanation: From [0,0] to [4,4] we can count 3 ships within the range.
+
+
+*/
+
+function countShips(ships, topRight, bottomLeft){
+    return divideAndConquer(ships, topRight, bottomLeft)
+ 
+}
+
+function divideAndConquer(ships, topRight, bottomLeft){
+    if(topRight[0] < bottomLeft[0] || topRight[1] < bottomLeft[1] || !has.ship(topRight, bottomLeft)){
+        return 0;
+    }
+
+    if(topRight[0] === bottomLeft[0] || topRight[1] === bottomLeft[1]){
+        return 1;
+    }
+
+    let count = 0; 
+    let midX = Math.floor(bottomLeft[0] + (topRight[0] - bottomLeft[0]) / 2);
+    let midY = Math.floor(bottomLeft[1] + (topRight[1] - bottomLeft[1]) / 2);
+
+    count += divideAndConquer(ships, [midX, midY], bottomLeft);
+    count += divideAndConquer(ships, [topRight[0], midY], [midX+1, bottomLeft[1]]);
+    count += divideAndConquer(ships, [midX, topRight[1]], [bottomLeft[0], midY + 1]);
+    count += divideAndConquer(ships, topRight, [midX+1, midY + 1]);
+
+    return count;
+}
+
+ let ships = [[1,1],[2,2],[3,3],[5,5]] 
+ let topRight = [4,4]
+ let bottomLeft = [0,0]
+
+ console.log(countShips(ships, topRight, bottomLeft));
