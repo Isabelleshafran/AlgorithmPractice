@@ -675,29 +675,35 @@ root.right.right.left.right.right = new TreeNode(12);
 */
 
 function countShips(ships, topRight, bottomLeft){
-    return divideAndConquer(ships, topRight, bottomLeft)
+    return findShips(ships, topRight, bottomLeft)
  
 }
 
-function divideAndConquer(ships, topRight, bottomLeft){
-    if(topRight[0] < bottomLeft[0] || topRight[1] < bottomLeft[1] || !has.ship(topRight, bottomLeft)){
+function findShips(ships, topRight, bottomLeft){
+    if(topRight[0] < bottomLeft[0] || topRight[1] < bottomLeft[1] || !hasShips(topRight, bottomLeft)){
         return 0;
     }
 
     if(topRight[0] === bottomLeft[0] || topRight[1] === bottomLeft[1]){
-        return 1;
+        if(hasShips(topRight, bottomLeft)) {
+            return 1
+        } else {
+            return 0;
+        }
     }
 
-    let count = 0; 
-    let midX = Math.floor(bottomLeft[0] + (topRight[0] - bottomLeft[0]) / 2);
-    let midY = Math.floor(bottomLeft[1] + (topRight[1] - bottomLeft[1]) / 2);
+    
+    let midX = Math.floor((bottomLeft[0] + topRight[0]) / 2);
+    let midY = Math.floor((bottomLeft[1] + topRight[1]) / 2);
+    let mid = [midX, midY]
 
-    count += divideAndConquer(ships, [midX, midY], bottomLeft);
-    count += divideAndConquer(ships, [topRight[0], midY], [midX+1, bottomLeft[1]]);
-    count += divideAndConquer(ships, [midX, topRight[1]], [bottomLeft[0], midY + 1]);
-    count += divideAndConquer(ships, topRight, [midX+1, midY + 1]);
+    let topLeftQ = findShips(ships, [mid[1], topRight[1]], [bottomLeft[0], mid[1]+1]);
+    let topRightQ = findShips(ships, topRight, [mid[0]+1, mid[1]+1]);
+    let bottomRightQ = findShips(ships, [mid[0], mid[1]], [mid[0]+1, bottomLeft[0]]);
+    let bottomLeftQ = findShips(ships, [mid[0], mid[1]], bottomLeft);
 
-    return count;
+    return topLeftQ + topRightQ + bottomRightQ + bottomLeftQ
+
 }
 
  let ships = [[1,1],[2,2],[3,3],[5,5]] 
