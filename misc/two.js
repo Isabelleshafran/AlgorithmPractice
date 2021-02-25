@@ -119,12 +119,7 @@ function anagrams(string1, string2){
     similar to candy crush. If you get a string 'crush' any characters that occurs 3 or more times in a row. keep doing this until there cant be any more candies 'crushed'
     'abbbaa' => 'aaa' => ''
     'abnnnnke' => 'abke'
-    - optimal solution is to use a 2d stack, so you can get it in O(n) time.  
-    In that you hold the char and the the second index is how many times it occurs. 
-    if you get to a new char check the previous entry in the stack if is has more than 
-    3 in a row pop it off. increment the top element in the stack if it is the same char 
-    if not add a new one. then at the end build the new string out of the stack.
-
+   
 */
 
 
@@ -710,4 +705,4 @@ function findShips(ships, topRight, bottomLeft){
  let topRight = [4,4]
  let bottomLeft = [0,0]
 
- console.log(countShips(ships, topRight, bottomLeft));
+//  console.log(countShips(ships, topRight, bottomLeft));
