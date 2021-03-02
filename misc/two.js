@@ -143,7 +143,7 @@ function candyCrush(string){
     return stack.map(x => x[0]).join('');
 }
 
-// console.log(candyCrush("abnnnnke"));
+console.log(candyCrush("abnnnnke"));
 
 /*
     variation on two sum but needed to count all the same pairs as well with many repeating numbers in the array.
@@ -220,6 +220,7 @@ function twoSum(nums, target){
 // not sorted 
 function valuesInBoth(array1, array2){
     let final = [];
+
 
     for(let i = 0; i < array1.length; i++){
         let num = array1[i];
