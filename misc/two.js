@@ -367,6 +367,60 @@ function findThreshold(nums, desired){
     Given word = "ABCB", return false.
 */
 
+function wordExists(board, word){
+    word = word.split('')
+    if(!board) return board; 
+
+    for(let i = 0; i < board.length; i++){
+        for(let j = 0; j < board[0].length; j++){
+            if (board[i][j] === word.shift()) {
+              while(word.length){
+        
+                 helper(board, i, j, word.shift())
+              }
+            }
+        }
+    }
+
+    return true;
+}
+
+function helper(board, row, col, next){
+    if(row <= 0 || col <= 0) return;
+    if(board[row][col] !== next) return false
+
+    if(board[row-1][col] && board[row-1][col] === next){
+        return true; 
+    }
+
+    if (board[row + 1][col] && board[row + 1][col] === next) {
+      return true;
+    }
+
+     if (board[row][col - 1] && board[row][col - 1] === next) {
+       return true;
+     }
+
+     if (board[row][col + 1] && board[row][col + 1] === next) {
+       return true;
+     }
+
+     return false;
+}
+
+let board3 = [
+  ["A", "B", "C", "E"],
+  ["S", "F", "C", "S"],
+  ["A", "D", "E", "E"],
+];
+
+let word = "ABCCED"
+    // Given word = "SEE", return true.
+    // Given word = "ABCB", return false.
+
+    console.log(wordExists(board3, word));
+
+
 /*
     given sorted array, make a balanced BST.    
 */
