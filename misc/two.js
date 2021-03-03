@@ -143,7 +143,7 @@ function candyCrush(string){
     return stack.map(x => x[0]).join('');
 }
 
-console.log(candyCrush("abnnnnke"));
+// console.log(candyCrush("abnnnnke"));
 
 /*
     variation on two sum but needed to count all the same pairs as well with many repeating numbers in the array.
@@ -288,11 +288,31 @@ function valuesInBoth(array1, array2){
     3 once applied to the list can yield the desired sum (i.e. 1 + 2 + 3 = 6) If there
     are multiple of such thresholds we'd like to find the lowest one.
     [1, 2, 5], 6 -> 3
+    [10, 20, 30, 40], 70 -> 20 
     [40, 20, 10, 30], 70  -> 20
     [40, 20, 30, 10], 71  -> 20.5
     [40, 20, 10, 30], 100 -> 40
 */
 
+function findThreshold(nums, desired){
+    nums.sort((a, b) => a-b);
+    let min = Infinity;
+
+    //a + ? = desired 
+
+    for(let i = 0; i < nums.length; i++){
+        for(let j = i + 1; j < nums.length; j++){
+            let currValue = nums[i] + nums[j]; 
+            let difference = desired - currValue
+            if(difference > 0 && difference < min){
+                min = difference
+            }
+        }
+    }
+    return min;
+}
+
+// console.log(findThreshold([10, 20, 30, 40], 70));
 
 /*
  LeetCode questions (including: #117, #1396, #146, #394)
