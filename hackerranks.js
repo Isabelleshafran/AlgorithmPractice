@@ -88,7 +88,7 @@ function reachTheEnd(grid, maxTime){
                 count += 1; 
                 grid[i][j] = '#'
                 if((i === totalRow-1) && (j === totalCol-1)){
-                    console.log('last one');
+                    // console.log('last one');
                     if (count <= maxTime) {
                         return "Yes";
                     } else {
@@ -432,11 +432,11 @@ const numPairsDivisibleBy60 = (time) => {
 
 //   {10: 2, 20: 1, 40: 1} 
 // ans = 1
-  console.log(appearDic);
+  // console.log(appearDic);
   return ans;
 };
 
-console.log(numPairsDivisibleBy60([10, 20, 10, 40, 50, 60, 70, 30]));
+// console.log(numPairsDivisibleBy60([10, 20, 10, 40, 50, 60, 70, 30]));
 
 // ran into time complexity issue 
 
@@ -522,9 +522,103 @@ const solve = (people, umbrellas) => {
   }
 };
 
-console.log(solve(8, [5, 3]));
+// console.log(solve(8, [5, 3]));
 
 // requirement = 8 
 // sizes = [5, 3]
 
 // this doesn't handle if there is a combination of mulitple diff sizes to = requirement 
+
+function minimumMoves(arr1, arr2) {
+  // Write your code here
+  let count = 0;
+
+  for (let i = 0; i < arr1.length; i++) {
+    let current1 = arr1[i];
+    let current2 = arr2[i];
+
+    count += getDiffCount(current1, current2);
+  }
+
+  return count;
+}
+
+function getDiffCount(current1, current2) {
+  // 123 // 321
+
+  let count = 0;
+
+  let str1 = current1.toString();
+  let str2 = current2.toString();
+
+  for (let i = 0; i < str1.length; i++) {
+    let curr1 = parseInt(str1[i]);
+    let curr2 = parseInt(str2[i]);
+
+    count += Math.abs(curr1 - curr2);
+  }
+
+  return count;
+}
+
+// console.log(minimumMoves([123, 543], [321, 279]));
+
+// console.log(getDiffCount(123, 321));
+
+let markings = [
+  [0,3], [0,5],[0,7]
+  [1,6],[1,8],[1,9]
+  [2,3],[2,5],[2,6]
+]
+
+
+function deviceNamesSystem(devicenames) {
+  // Write your code here
+  let obj = {};
+  let unique = [];
+
+  for (let i = 0; i < devicenames.length; i++) {
+    let current = devicenames[i];
+    if (!obj[current]) {
+      obj[current] = 1;
+      unique.push(current);
+    } else {
+      unique.push(current.concat(obj[current].toString()));
+      obj[current] += 1;
+    }
+  }
+  // return obj
+  return unique;
+}
+
+let devicenames = ["switch", "tv", "switch", "tv", "switch", "tv"];
+
+// console.log(deviceNamesSystem(devicenames));
+
+
+
+function countTeams(skills, minPlayers, minLevel, maxLevel) {
+  // Write your code here
+  let potentialPlayers = meetRequirements(skills, minLevel, maxLevel);
+  
+}
+
+function meetRequirements(skills, minLevel, maxLevel) {
+  let set = new Set();
+
+  for (let i = 0; i < skills.length; i++) {
+    let curr = skills[i];
+    if (curr >= minLevel && curr <= maxLevel) {
+      set.add(curr);
+    }
+  }
+
+  return set;
+}
+
+let skills = [12, 4, 6, 13, 5, 10];
+let minPlayers = 3;
+let minLevel = 4; 
+let maxLevel = 10;
+
+console.log(meetRequirements(skills, minLevel, maxLevel));
