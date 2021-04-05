@@ -621,4 +621,56 @@ let minPlayers = 3;
 let minLevel = 4; 
 let maxLevel = 10;
 
-console.log(meetRequirements(skills, minLevel, maxLevel));
+// console.log(meetRequirements(skills, minLevel, maxLevel));
+
+
+// first increasing then decreasing 
+
+function longestBitonicSubarray(arr) {
+  let longest = 0;
+  for(let i = 0; i < arr.length; i++){
+    for(let j = i; j < arr.length; j++){
+      let sub = arr.slice(i, j+1);
+      console.log(sub);
+      if(isBitonic(sub) && sub.length > longest){
+        longest = sub.length
+      }
+    }
+  }
+  return longest;
+}
+
+
+function isBitonic(array){
+  for(let i = 0; i < array.length-1; i++){
+    let curr = array[i];
+    let next = array[i+1];
+
+    if(next < curr){
+      let first = array.slice(0, i+1);
+      let second = array.slice(i+1)
+      console.log(first, second);
+      if(increasing(first) && decreasing(second)){
+        return true
+      }
+    }
+  }
+  return false;
+}
+
+function increasing(array){
+  for(let i = 0; i < array.length-1; i++){
+    if(array[i+1] < array[i]) return false;
+  }
+  return true
+}
+
+function decreasing(array) {
+  for (let i = 0; i < array.length - 1; i++) {
+    if (array[i + 1] > array[i]) return false;
+  }
+  return true;
+}
+
+console.log(isBitonic([1, 2, 3, 6, 9]));
+// console.log(longestBitonicSubarray([6,4,1,2,3,6,9]));
