@@ -1,10 +1,34 @@
 // String compression 
 
+function stringCompression(string) {
+    let count = 0; 
+    let compressed = "";
+
+    for(let i = 0; i < string.length; i++){
+        count += 1
+
+        if(string[i] !== string[i+1]){
+           compressed += string[i] + count; 
+           count = 0;
+        }
+    }
+    return compressed;
+}
+
+// console.log(stringCompression("aabcccccaaa"));
+
+
 // anagrams 
+
+function anagrams(str1, str2){
+    let obj = {};
+}
 
 // median of sorted array 
 
-// fibonacci recursive and not 
+// fibonacci recursive
+
+// fibonacci non recrusive 
 
 // palindrome
 
