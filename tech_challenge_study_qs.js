@@ -14,7 +14,7 @@ function stringCompression(string) {
     return res;
 }
 
-console.log(stringCompression("aabcccccaaa"));
+// console.log(stringCompression("aabcccccaaa"));
 
 
 // anagrams 
@@ -87,7 +87,7 @@ function isPalindrome(str){
     return true;
 }
 
-console.log(isPalindrome("dog god"));
+// console.log(isPalindrome("dog god"));
 
 // binary tree is binary search tree 
 
@@ -114,6 +114,24 @@ function frequentOccChar(arr){
 // given two strings find length of longest substring 
 
 // permutations 
+
+function permutationsString(string) {
+  let permutations = [];
+  if(string.length <= 1) return string; 
+
+  for(let i = 0; i < string.length; i++){
+      let char = string[i];
+      let remainingString = string.slice(0, i) + string.slice(i+1);
+
+      for(let subPerm of permutationsString(remainingString)){
+          let perm = char + subPerm;
+          permutations.push(perm)
+      }
+  }
+  return permutations;
+}
+
+ console.log(permutationsString("cat"));
 
 // egg drop 
 
