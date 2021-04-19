@@ -2,20 +2,19 @@
 
 function stringCompression(string) {
     let count = 0; 
-    let compressed = "";
+    let res = "";
 
     for(let i = 0; i < string.length; i++){
-        count += 1
-
+        count++
         if(string[i] !== string[i+1]){
-           compressed += string[i] + count; 
-           count = 0;
+            res += string[i] + count;
+            count = 0;
         }
     }
-    return compressed;
+    return res;
 }
 
-// console.log(stringCompression("aabcccccaaa"));
+console.log(stringCompression("aabcccccaaa"));
 
 
 // anagrams 
