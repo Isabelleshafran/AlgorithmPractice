@@ -672,5 +672,46 @@ function decreasing(array) {
   return true;
 }
 
-console.log(isBitonic([1, 2, 3, 6, 9]));
+// console.log(isBitonic([1, 2, 3, 6, 9]));
 // console.log(longestBitonicSubarray([6,4,1,2,3,6,9]));
+
+
+function getUniqueCharacter(s) {
+  // Write your code here
+  let charCounts = {};
+
+  for (let i = 0; i < s.length; i++) {
+    let char = s[i];
+    if (!charCounts[char]) {
+      charCounts[char] = 1;
+    } else {
+      charCounts[char] += 1;
+    }
+  }
+
+  for (let i = 0; i < s.length; i++) {
+    let char = s[i];
+    if (charCounts[char] === 1) return i + 1;
+  }
+
+  return -1;
+}
+
+
+// Whole minute dilemma 
+
+function playlist(songs) {
+  let count = 0;
+  let map = new Map();
+  for (let i = 0; i < songs.length; i++) {
+    let t = songs[i];
+    const mod = t % 60;
+    const poss = mod === 0 ? 0 : 60 - mod;
+
+    count += map.get(poss) || 0;
+    map.set(mod, (map.get(mod) || 0) + 1);
+  }
+  return count;
+}
+
+
