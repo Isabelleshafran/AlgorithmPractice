@@ -131,7 +131,28 @@ function permutationsString(string) {
   return permutations;
 }
 
- console.log(permutationsString("cat"));
+//  console.log(permutationsString("cat"));
+
+//  Arrange given numbers to form the biggest number
+
+function compare(X, Y){
+    let XY = X+Y; 
+    let YX = Y+X
+    return Number(XY) > Number(YX) ? 0 : 1
+}
+
+function biggestNumber(array){
+    let sorted = array.sort((a,b) => compare(a, b))
+    let final = ""
+    for(let i = 0; i < sorted.length; i++){
+        final += sorted[i]
+    }
+    return final;
+}
+
+console.log(biggestNumber(["1", "34", "3", "98", "9", "76", "45", "4"]));
+console.log(biggestNumber(["54", "546", "548", "60"]));
+
 
 // egg drop 
 
