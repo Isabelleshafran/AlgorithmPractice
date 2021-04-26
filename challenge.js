@@ -105,3 +105,47 @@ const isRobotBounded = function (instructions) {
   }
   return dir % 4 != 0 || (!x && !y);
 };
+
+
+// Question:
+    // Convert an array of integers into an array of strings representing the phonetic equivalent of the
+// integer.
+
+// For example:
+    // Given an array: [3, 25, 209], print “Three,TwoFive,TwoZeroNine” into stdout.
+    // Given an array: [10, 300, 5], print “OneZero,ThreeZeroZero,Five” into stdout.
+
+function phoneticEq(array){
+  let final = [];
+  for(let i = 0; i < array.length; i++){
+    let current = array[i]; 
+    final.push(phoneNum(current));
+  }
+  return final.join(',');
+}
+
+function phoneNum(num){
+  let numArray = num.toString().split('');
+  let numDic = {
+    "0": "Zero",
+    "1": "One", 
+    "2": "Two", 
+    "3": "Three", 
+    "4": "Four", 
+    "5": "Five", 
+    "6": "Six", 
+    "7": "Seven", 
+    "8": "Eight", 
+    "9": "Nine"
+  }
+
+  let final = [];
+  for(let i = 0; i < numArray.length; i++){
+    let stringNum = numDic[numArray[i]]
+    final.push(stringNum)
+  }
+  return final.join('');
+}
+
+console.log(phoneticEq([3, 25, 209]));
+console.log(phoneticEq([10, 300, 5]));
