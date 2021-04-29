@@ -149,3 +149,75 @@ function phoneNum(num){
 
 console.log(phoneticEq([3, 25, 209]));
 console.log(phoneticEq([10, 300, 5]));
+
+
+function caesar(message, shift, shouldEncode){
+  let wordArray = string.split(' '); 
+
+  // console.log(wordArray)
+  let final = []
+  
+  for(let i = 0; i < wordArray.length; i++){
+    let word = wordArray[i];
+    let newWord;
+    if(bool === false){
+      newWord = caesarHelperFalse(word, k)
+    } else {
+      newWord = caesarHelperTrue(word, k);
+    }
+
+    final.push(newWord)
+  }
+  
+  return final.join(' ');
+}
+
+//amazed
+
+function caesarHelperFalse(word, k, shouldEncode){
+  let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+  let finalString = []
+  
+
+  
+  for(let i = 0; i < word.length; i++){
+    let char = word[i].toLowerCase(); //'d'
+    
+    //26 - 3 - 1 
+    
+    let index = alphabet.indexOf(char); 
+    let newIndex = index - k; // 'a' 0 = newindex = -1; 
+    
+    if(newIndex < 0){
+      newIndex += alphabet.length;
+    }
+    let newLetter = alphabet[newIndex]; // alphabet[3]
+    finalString.push(newLetter)
+  }
+  
+
+  return finalString.join('');
+}
+
+
+//while x < k 
+
+function caesarHelperTrue(word, k){
+  let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+  let finalString = []
+  
+  for(let i = 0; i < word.length; i++){
+    let char = word[i].toLowerCase(); //'a'
+    let index = alphabet.indexOf(char); //0
+    
+    let newIndex = (index + k) % alphabet.length; // 
+    let newLetter = alphabet[newIndex]; 
+    finalString.push(newLetter)
+  }
+  
+
+  return finalString.join('');
+}
+
+console.log(caesar('I am amazed', 3, true))
+console.log(caesar(' l dp dpdchg', 3, false))
